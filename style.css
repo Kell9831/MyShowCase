@@ -166,10 +166,6 @@ button:hover {
   not in the card container - these cards stack 
   on top of each other natively */
 
-/* card has:
-  3 columns[40px 1fr 0.75fr], 
-  2 rows[minmax(25%, 50%) minmax(25%, 50%)] */
-
  @media (min-width: 600px) {
 
   article{
@@ -218,8 +214,6 @@ button:hover {
 
 
 @media (min-width: 1024px) {
-  /* switch to flexbox layout to control layout 
-  of the cards relative to each other */
   
 .grid-container{
   display: grid;

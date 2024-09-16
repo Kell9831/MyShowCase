@@ -1,0 +1,276 @@
+@layer base {
+  :root {
+    /* colors */
+    --white: #ffffff;
+    --coffee: #43281c;
+    --vanilla: #f1e3d3;
+    --mocha: #7f4f24;
+    --tan: #ddb892;
+
+    /* fonts */
+    --decorative: "Montserrat", sans-serif;
+    --sans: "Open Sans", sans-serif;
+
+    /* font scale */
+    --base-size: 1.2rem;
+    --scale: 1.25;
+    --xl: calc(var(--h1) * var(--scale) * var(--scale)); /* 7.15rem */
+    --lg: calc(var(--h1) * var(--scale)); /* 4.575rem */
+    --h1: calc(var(--h2) * var(--scale)); /* 3.66rem */
+    --h2: calc(var(--h3) * var(--scale)); /* 2.93rem */
+    --h3: calc(var(--h4) * var(--scale)); /* 2.34rem */
+    --h4: calc(var(--h5) * var(--scale)); /* 1.875rem */
+    --h5: calc(var(--h6) * var(--scale)); /* 1.5rem */
+    --h6: var(--base-size); /* 1.2rem */
+    --small: calc(var(--base-size) / var(--scale)); /* 0.96rem */
+
+    /* other variables */
+    --radius: 5px;
+  }
+
+  /* add border box sizing to the page right from the start */
+  html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  body {
+    font-family: var(--sans);
+    line-height: 1.5;
+    background-color: var(--vanilla);
+    color: var(--coffee);
+    font-size: var(--base-size);
+    padding: 0;
+    margin: 0;
+  }
+  h1,
+  h2,
+  h3,
+  .h1,
+  .h2,
+  .h3 {
+    font-weight: 400;
+    font-family: var(--decorative);
+    margin: 0;
+  }
+  h1,
+  .h1 {
+    font-size: var(--h1);
+    line-height: 1;
+    margin-bottom: var(--h2);
+  }
+  h2,
+  .h2 {
+    font-size: var(--h2);
+    line-height: 1.1;
+    margin-bottom: var(--h6);
+  }
+  h3,
+  .h3 {
+    font-size: var(--h3);
+    line-height: 1.2;
+    margin-bottom: var(--h4);
+  }
+  img {
+    max-width: 100%;
+    border-radius: var(--radius);
+  }
+  figure {
+    margin: 0;
+  }
+  a {
+    color: var(--green);
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  header {
+    background-color: transparent; 
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--vanilla);
+    box-shadow: 0px 5px 30px var(--mocha);
+    position: fixed; 
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;  /* the header is above other elements*/
+  } 
+  header h1 {
+    color: var(--coffee);
+    text-align: center;
+    margin: 0;
+  }
+  .blurred {
+    backdrop-filter: blur(10px);
+  }
+  /* https://fossheim.io/writing/posts/css-text-gradient/ */
+  .fancy-text {
+    background-image: linear-gradient(var(--mocha) 0%, var(--tan) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+article{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, auto);
+  margin-top: 160px;
+}
+
+article h2{
+  text-align: center;
+}
+
+article p{
+  text-align: left;
+  padding: 2rem;
+  font-family: var(--sans);
+  font-weight: 500;
+  text-align: left;
+
+}
+article img{
+  width: 100%;
+}
+
+ button{
+  background-color: transparent;
+  width: 70%;
+  height: 50px;
+  padding: 10px 20px;
+  cursor: pointer; 
+  font-size: var(--base-size);
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  color: var(--coffee);
+}
+
+button:hover {
+  background-color: var(--coffee);
+  color: var(--white);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.content-wrapper{
+  display: grid;
+  padding: auto;
+  margin-top: 2rem;
+}
+/* mobile first card styles, no layout. 
+  Note all layout is happening in the card itself, 
+  not in the card container - these cards stack 
+  on top of each other natively */
+
+/* card has:
+  3 columns[40px 1fr 0.75fr], 
+  2 rows[minmax(25%, 50%) minmax(25%, 50%)] */
+
+ @media (min-width: 600px) {
+
+  article{
+    margin-top: var(--xl);
+  }
+
+  .content-wrapper{
+    display: grid;
+    grid-template-columns: 90px 1fr 0.75fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  article h2{
+    transform: rotate(90deg);
+    margin: 1rem;
+    transform-origin: left bottom;
+    z-index: 1; 
+    position: relative;
+  }
+
+  article img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .img-wrapper {
+    grid-column: 2/3;
+    margin-top: var(--base-size);
+    max-width: 300px;
+    height: 460px;
+    justify-self: end;
+  }
+
+  article p{
+    text-align: left;
+    padding: 0px 1rem;
+    
+  }
+
+  .fancy-text {
+    font-size: var(--xl);
+  }
+} 
+
+
+
+@media (min-width: 1024px) {
+  /* switch to flexbox layout to control layout 
+  of the cards relative to each other */
+  
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 3rem;
+  margin: auto;
+}
+
+.content-wrapper{
+    display: inline-block;
+}
+
+.grid-container_botom{
+  display: grid;
+  grid-template-columns: 450px 450px;
+  gap: 2rem;
+  margin: 0 auto;
+  justify-content: center;
+  width: 1200px;
+}
+
+  article img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .img-wrapper {
+    margin-top: var(--base-size);
+    max-width: 400px;
+    height: 600px;
+    justify-self: end;
+  }
+
+  article p{
+    text-align:start;
+    padding: 3rem 0px;
+    max-width: 400px;
+  }
+
+  article p button{
+    height: 70px;
+    text-align: center;
+  }
+
+  article h2 {
+    transform: none;
+    text-align: center;
+  }
+
+  .fancy-text {
+    font-size: var(--xl);
+  }
+}
